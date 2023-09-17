@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{blogPost.title}} - Tech Blog</title>
+</head>
+<body>
+    <header>
+        <h1>Tech Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article class="blog-post">
+            <h2>{{blogPost.title}}</h2>
+            <p>{{blogPost.content}}</p>
+            <p>Posted by {{blogPost.User.username}} on {{blogPost.createdAt}}</p>
+        </article>
+        <section class="comments">
+            <h3>Comments</h3>
+            {{#each blogPost.Comments}}
+                <div class="comment">
+                    <p>{{this.content}}</p>
+                    <p>Comment by {{this.User.username}} on {{this.createdAt}}</p>
+                </div>
+            {{/each}}
+        </section>
+        <section class="new-comment">
+            <h3>Add a Comment</h3>
+            <form action="/comment" method="POST">
+                <textarea name="content" rows="4" required></textarea>
+                <button type="submit">Submit Comment</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Tech Blog</p>
+    </footer>
+</body>
+</html>

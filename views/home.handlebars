@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Blog</title>
+</head>
+<body>
+    <header>
+        <h1>Tech Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/signup">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="blog-posts">
+            {{#each blogPosts}}
+                <article class="blog-post">
+                    <h2>{{title}}</h2>
+                    <p>{{content}}</p>
+                    <p>Posted by {{user.username}} on {{createdAt}}</p>
+                    <!-- Add a link to view the full post -->
+                    <a href="/post/{{id}}">Read more</a>
+                </article>
+            {{/each}}
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Tech Blog</p>
+    </footer>
+</body>
+</html>

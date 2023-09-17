@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome, {{ username }}</h1>
+        <a href="/logout">Logout</a>
+    </header>
+
+    <section class="new-post">
+        <h2>Create a New Blog Post</h2>
+        <form id="create-post-form" action="/create" method="POST">
+            <input type="text" name="title" placeholder="Title" required>
+            <textarea name="content" placeholder="Blog content" required></textarea>
+            <button type="submit">Create Post</button>
+        </form>
+    </section>
+
+    <section class="blog-posts">
+        <h2>Your Blog Posts</h2>
+        {{#if blogPosts.length}}
+            <ul>
+                {{#each blogPosts}}
+                    <li data-id="{{ id }}">
+                        <h3>{{ title }}</h3>
+                        <p>{{ content }}</p>
+                        <p>Posted on {{ createdAt }}</p>
+                        <a href="/edit/{{ id }}">Edit</a>
+                        <a href="#" class="delete-post">Delete</a>
+                    </li>
+                {{/each}}
+            </ul>
+        {{else}}
+            <p>You haven't created any blog posts yet.</p>
+        {{/if}}
+    </section>
+
+    <footer>
+        
+    </footer>
+
+    <script>
+        // JavaScript 
+        const deleteButtons = document.querySelectorAll('.delete-post');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', async (event) => {
+                event.preventDefault();
+                const postElement = event.target.closest('li');
+                const postId = postElement.getAttribute('data-id');
+
+                if (postId) {
+                    const response = await fetch(`/delete/${postId}`, {
+                        method: 'DELETE',
+                    });
+
+                    if (response.ok) {
+                        // Remove the deleted post from the DOM
+                        postElement.remove();
+                    } else {
+                        alert('Failed to delete the post.');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
