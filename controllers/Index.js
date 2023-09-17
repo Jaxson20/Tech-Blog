@@ -1,5 +1,3 @@
-// controllers/index.js
-
 const authMiddleware = require('./authMiddleware');
 const blogController = require('./blog');
 const commentsController = require('./comments');
